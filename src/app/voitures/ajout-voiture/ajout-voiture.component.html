@@ -1,0 +1,147 @@
+<!-- Title group  -->
+<div class="title-group">
+    <h1 class="mat-h1">Ajouter Voiture</h1>
+    <mat-divider fxFlex="1 0"></mat-divider>
+  </div>
+
+  <!-- Voiture form -->
+ <div class="inner-wrapper">
+    <form [formGroup]="VoitureForm" (ngSubmit)="submitBook()" #resetBookForm="ngForm" novalidate>
+      <!-- Left block -->
+      <mat-card>
+        <div class="controlers-wrapper">
+          <!-- Voiture Modele-->
+          <mat-form-field class="example-full-width">
+            <input matInput placeholder="Modele Voiture" formControlName="modele">
+            <mat-error *ngIf="handleError('modele', 'required')">
+            <strong> Modele </strong> est obligatoire
+            </mat-error>
+          </mat-form-field>
+
+          <!-- Prix -->
+         <mat-form-field class="example-full-width">
+            <input type="number" matInput placeholder="Prix" formControlName="prix" pattern="[0-9]*" 
+              maxlength="10">
+            <mat-error *ngIf="handleError('prix', 'required')">
+              <strong> Prix </strong> est obligatoire
+            </mat-error>
+          </mat-form-field>
+
+           <!-- Vitesse Max -->
+       <div class="display: inline-block">
+         <mat-form-field class="example-full-width">
+            <input type="number" matInput placeholder="Vitesse Max (Km/h)" formControlName="Vitesse_max">
+            <mat-error *ngIf="handleError('Vitesse_max', 'required')">
+            <strong>La vitesse maximale</strong> est obligatoire
+            </mat-error>
+         </mat-form-field>
+         <mat-form-field>
+            <input type="number" matInput placeholder="Vitesse Max (Mph)" formControlName="Vitesse_max" value="{{VoitureForm.get('Vitesse_max').value * 0.62}}" maxlength="5">
+            
+          </mat-form-field>
+          </div>
+
+          <div class="display: inline-block">
+            <mat-form-field class="example-full-width">
+               <input type="number" matInput placeholder="Vitesse Moyenne (Km/h)" formControlName="Vitesse_Moy">
+               <mat-error *ngIf="handleError('Vitesse_Moy', 'required')">
+               <strong>La vitesse moyenne</strong> est obligatoire
+               </mat-error>
+            </mat-form-field>
+            <mat-form-field>
+               <input type="number" matInput placeholder="Vitesse Moyenne (Mph)" formControlName="Vitesse_Moy" value="{{VoitureForm.get('Vitesse_Moy').value * 0.62}}" maxlength="5">
+               
+             </mat-form-field>
+             </div>
+
+             <!-- Fabrication date -->
+         <mat-form-field>
+            <input matInput readonly [matDatepicker]="picker" placeholder="Date de fabrication "
+              formControlName="fabrication_date" (dateChange)="formatDate($event)">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+            <mat-error *ngIf="handleError('fabrication_date', 'required')">
+              Date fabrication is required
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </mat-card>
+
+      <!-- Right block -->
+     <mat-card>
+        <div class="controlers-wrapper">
+          <!-- Type -->
+          <mat-form-field>
+            <mat-label>Type</mat-label>
+            <mat-select [(value)]="selected" formControlName="Type">
+              <mat-option [value]="Type" *ngFor="let t of Type">{{t}}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="handleError('Type', 'required')">
+              Type de voiture est obligatoire
+            </mat-error>
+          </mat-form-field>
+        
+          <!-- Disponible -->
+         <div class="misc-bottom-padding">
+            <mat-label>Disponible : </mat-label>
+            <mat-radio-group aria-label="Select an option" formControlName="disponiblite">
+              <mat-radio-button value="Oui">Oui</mat-radio-button>
+              <mat-radio-button value="Non">Non</mat-radio-button>
+            </mat-radio-group>
+          </div>
+
+           <!-- Add languages -->
+         <mat-form-field class="multiple-items">
+          <mat-chip-list #chipList>
+            <mat-chip *ngFor="let o of optArray" [selectable]="selectable" [removable]="removable"
+              (removed)="remove(o)">
+              {{o.name}}
+              <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+            </mat-chip>
+            <input placeholder="Ajouter Options" [matChipInputFor]="chipList"
+              [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur"
+              (matChipInputTokenEnd)="add($event)">
+          </mat-chip-list>
+          <i class="material-icons tooltip-info" matTooltip="Tapez les options et clickez sur Entrer pour ajouter plusieurs options">
+            info
+          </i>
+        </mat-form-field>
+
+        <div class="example-full-width">
+          <mat-label>Nombre de places :</mat-label>
+          <mat-slider style="width: 200px; margin-left : 10px"
+                thumbLabel
+                [displayWith]="formatLabel"
+                tickInterval="1000"
+                min="1"
+                max="5" formControlName ="nb_places">
+              </mat-slider>
+        </div>
+
+      
+        <div class="text-center">
+          <img src="https://babaride.com/static/img/car.png" width="350px" height="250px" >
+        </div>
+        <div class="form-group">
+          <label>Select file to upload</label>
+          <input type="file" accept="image/*" class="form-control" #fileUploader formControlName="imageUrl"
+            (change)="showPreview($event)" id="imageUrl">
+          <div class="text-danger" *ngIf="isSubmitted && formControls.imageUrl.errors?.required">This field is required.
+          </div>
+        </div>
+
+          </div>
+          </mat-card>
+          <mat-card>
+            <div class="full-wrapper button-wrapper">
+              <div class="button-wrapper">
+                <button type="submit" mat-flat-button color="warn">Submit</button>
+                <button mat-flat-button color="war" (click)="resetForm()">Clear</button>
+              </div>
+            </div>
+          </mat-card>
+          </form>
+          </div>
+          
+     
+        

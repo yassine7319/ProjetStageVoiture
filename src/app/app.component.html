@@ -1,0 +1,42 @@
+<!-- Toolbar -->
+<mat-toolbar color="primary" class="header" *ngIf="estConnecte()">
+  <button *ngIf="!estConnecte()" style="margin-left: 900px" routerLinkActive="active" routerLink="/sign-in"> Connection </button> 
+  <button  style="margin-left: 900px" (click)="Signout()"> Déconnection </button>
+  <span class="nav-tool-items">
+    <mat-icon (click)="sidenav.toggle()" class="hamburger"> Menu </mat-icon>
+  </span>
+</mat-toolbar> 
+
+<mat-sidenav-container >
+  <!-- Sidenav -->
+  <mat-sidenav #sidenav [mode]="isBiggerScreen() ? 'over' : 'side'" [(opened)]="opened" [fixedInViewport]="true"
+    [fixedTopGap]>
+    <mat-nav-list>
+      <a *ngIf="estConnecte()" mat-list-item routerLinkActive="active" routerLink="/ajout-voiture">
+        <mat-icon>add</mat-icon> Ajouter Voiture
+      </a>
+      <a *ngIf="estConnecte()" mat-list-item routerLinkActive="active" routerLink="/voitures-list">
+        <mat-icon>format_list_bulleted</mat-icon> Voitures Liste
+      </a>
+      <a *ngIf="estConnecte()" mat-list-item routerLinkActive="active" routerLink="/batteries-list">
+        <mat-icon>format_list_bulleted</mat-icon> Batteries Liste
+      </a>
+      <a *ngIf="estConnecte()" mat-list-item routerLinkActive="active" routerLink="/ajout-batterie">
+        <mat-icon>add</mat-icon> Ajouter Batterie
+      </a>
+      <a *ngIf="estConnecte()" mat-list-item routerLinkActive="active" routerLink="/batteries-list">
+        <mat-icon>format_list_bulleted</mat-icon> Points de Recharge
+      </a>
+      <a *ngIf="estConnecte()" mat-list-item routerLinkActive="active" routerLink="/ajout-batterie">
+        <mat-icon>add</mat-icon> Ajouter Point de Recharge
+      </a>
+
+
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <!-- Main content -->
+  <mat-sidenav-content>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>

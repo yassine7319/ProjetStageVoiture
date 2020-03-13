@@ -1,0 +1,36 @@
+<div class="container" *ngIf="batterie">
+    <div class="row">
+        <div class="col-md-5">
+            <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+                <div class="carousel-inner">
+                  <div class="carousel-item active">
+                    <img class="img-thumbnail" src="/assets/1349_W750.jpg" alt="First slide">
+                  </div>
+              </div>
+            </div>
+            <div style="margin-top: 10px;">
+                <label style="margin-right : 10px">Nombre disponible</label>
+                <input type="text" readonly value="{{batterie.nb_dispo}}"/>
+            </div>
+            <div>
+                <a class="btn btn-success" [routerLink]="['/modif-batterie/'+ id]">Edit</a>
+                <a (click)="onDeleteClick()" class="btn btn-danger">Delete</a>
+            </div>
+        </div>
+        <div class="col-md-7">
+            <p *ngIf="batterie.disponiblite == 'Oui'" class="newarrival text-center">Disponible</p>
+            <p *ngIf="batterie.disponiblite == 'Non'" class="newarrival text-center" style="background-color:red;">non Disponible</p>
+            <h2>{{batterie.modele_bat}}</h2>
+            <p class="price">USD : {{batterie.prix|currency}}</p>
+            <p><b> Capacité : </b>{{batterie.capacite}}</p>
+            <p><b> Voltage : </b>{{batterie.voltage}}</p>
+            <p><b> hauteur :</b>{{batterie.hauteur}} cm</p>
+            <p><b> largeur :</b>{{batterie.largeur}} cm</p>
+            <p><b>Contenu Chimique :</b>{{batterie.contenu_chimique}}</p>
+            <p><b> Durée de vie :</b>{{batterie.duree_vie}} cm</p>
+            <p><b> Décharge_max :</b>{{batterie.decharge_max}} cm</p>
+
+        </div>
+            
+</div>
+</div>

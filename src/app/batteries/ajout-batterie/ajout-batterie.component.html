@@ -1,0 +1,111 @@
+<!-- Title group  -->
+<div class="title-group">
+    <h1 class="mat-h1">Ajouter Batterie</h1>
+    <mat-divider fxFlex="1 0"></mat-divider>
+  </div>
+
+  <div class="inner-wrapper">
+    <form [formGroup]="BatteryForm" (ngSubmit)="submitBattery(BatteryForm.value)" #resetBookForm="ngForm" novalidate>
+      <!-- Left block -->
+      <mat-card>
+        <div class="controlers-wrapper">
+          <!-- Voiture Modele-->
+          <mat-form-field class="example-full-width">
+            <input matInput placeholder="Modele Batterie" formControlName="modele_bat">
+            <mat-error *ngIf="handleError('modele_bat', 'required')">
+            <strong> ce champ </strong> est obligatoire
+            </mat-error>
+          </mat-form-field>
+
+          <!-- Prix -->
+         <mat-form-field class="example-full-width">
+            <input type="number" matInput placeholder="Prix(DT)" formControlName="Prix" pattern="[0-9]*" 
+              maxlength="10">
+            <mat-error *ngIf="handleError('Prix', 'required')">
+              <strong> ce champ </strong> est obligatoire
+            </mat-error>
+          </mat-form-field>
+           
+          <div class="display: inline-block">
+            <mat-form-field class="example-full-width">
+               <input type="number" matInput placeholder="Capacité batterie" formControlName="capacite">
+               <mat-error *ngIf="handleError('capacite', 'required')">
+               <strong>ce champ</strong> est obligatoire
+               </mat-error>
+            </mat-form-field>
+
+                <mat-form-field class="example-full-width" style="padding-left: 30px;">
+               <input type="number" matInput placeholder="Voltage Batterie " maxlength="5" formControlName="voltage">
+               <mat-error *ngIf="handleError('voltage', 'required')">
+                <strong>ce champ</strong> est obligatoire
+                </mat-error>
+            </mat-form-field>
+            </div>
+
+            <div class="display: inline-block">
+                <mat-form-field class="example-full-width">
+                   <input type="number" matInput placeholder="Hauteur Batterie (cm)" formControlName="hauteur">
+                   <mat-error *ngIf="handleError('hauteur', 'required')">
+                   <strong> ce champ</strong> est obligatoire
+                   </mat-error>
+                </mat-form-field>
+    
+                    <mat-form-field class="example-full-width" style="padding-left: 30px;">
+                   <input type="number" matInput placeholder="Largeur Batterie " maxlength="5" formControlName="largeur">
+                   <mat-error *ngIf="handleError('largeur', 'required')">
+                    <strong> ce champ</strong> est obligatoire
+                    </mat-error>
+                </mat-form-field>
+                </div>
+
+                <mat-form-field class="example-full-width">
+                    <input type="number" matInput placeholder="Durée de vie" formControlName="duree_vie" pattern="[0-9]*" 
+                      maxlength="10">
+                    <mat-error *ngIf="handleError('duree_vie', 'required')">
+                      <strong> ce champ </strong> est obligatoire
+                    </mat-error>
+                  </mat-form-field>
+          </div>
+        </mat-card>
+          <mat-card>
+            <div class="controlers-wrapper">
+            <mat-form-field class="example-full-width">
+                <input type="number" matInput placeholder="Décharge Maximale" formControlName="decharge_max" pattern="[0-9]*" 
+                  maxlength="10">
+                <mat-error *ngIf="handleError('decharge_max', 'required')">
+                  <strong> ce champ </strong> est obligatoire
+                </mat-error>
+              </mat-form-field>
+
+              <mat-form-field>
+                <input matInput readonly [matDatepicker]="picker" placeholder="Date de fabrication "
+                  formControlName="fabrication_date" (dateChange)="formatDate($event)">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+                <mat-error *ngIf="handleError('fabrication_date', 'required')">
+                    ce champ est obligatoire
+                </mat-error>
+              </mat-form-field>
+            
+              <div class="form-group">
+                <label>Selectionnez l'image à ajouter</label>
+                <input type="file" accept="image/*" class="form-control" #fileUploader formControlName="imageUrl"
+                  (change)="showPreview($event)">
+                <div class="text-danger" *ngIf="isSubmitted && formControls.imageUrl.errors?.required">This field is required.
+                </div>
+              </div>
+          </div>
+          
+
+            <div class="full-wrapper button-wrapper">
+              <div class="button-wrapper">
+                <button type="submit" mat-flat-button color="warn">Submit</button>
+                <button mat-flat-button color="war" (click)="resetForm()">Clear</button>
+              </div>
+            </div>
+            </mat-card>
+          
+
+          </form>
+          </div>
+          
